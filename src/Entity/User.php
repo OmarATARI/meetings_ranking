@@ -63,6 +63,7 @@ class User implements UserInterface
     {
         $this->rankings = new ArrayCollection();
         $this->meetings = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int
