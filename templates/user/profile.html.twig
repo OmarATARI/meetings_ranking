@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% trans %} UserProfile {% endtrans %} {% endblock %}</title>
+</head>
+{% endblock %}
+
+
+{% block body %}
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h1>{{ user.lastName }} {{ user.firstName }}</h1>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <h1>{{ user.email }}</h1>
+                <h2>{{ user.username }}</h2>
+            </div>
+        </div>
+
+    </div>
+    <div class="container mt-4">
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2> {% trans %} Meetings {% endtrans %} </h2>
+
+                {% for meeting in user.meetings %}
+                    <table class="table table-striped">
+                        <tr>
+                            <td>{% trans %}TitleMeeting{% endtrans %}</td>
+                            <td>{{ meeting.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans %}DescriptionMeeting{% endtrans %}</td>
+                            <td>{{ meeting.description }} </td>
+                        </tr>
+                    </table>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
