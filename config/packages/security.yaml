@@ -16,13 +16,14 @@ security:
             anonymous: ~
             provider: our_db_provider
             form_login:
-                login_path: login
-                check_path: login
-                username_parameter: "login_user[email]"
-                password_parameter: "login_user[password]"
+                login_path: log_in
+                check_path: log_in
+                default_target_path: register
+                username_parameter: "login[email]"
+                password_parameter: "login[password]"
             logout:
                 path: /logout
-                target: /
+                target: /home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
