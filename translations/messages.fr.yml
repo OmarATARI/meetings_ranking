@@ -1,3 +1,4 @@
+## FORM REGISTER & LOGIN
 Email: Courriel
 Password: Mot de passe
 Submit: Se connecter
@@ -5,3 +6,9 @@ First name: Prénom
 Last name: Nom
 Username: Nom d'utilisateur
 Repeat Password: Répéter votre mot de passe
+
+## FORM PROFILE UTILISATEUR
+UserProfile: Profil utilisateur
+Meetings: Conférences
+TitleMeeting: Titre de la conférence
+DescriptionMeeting: Description
