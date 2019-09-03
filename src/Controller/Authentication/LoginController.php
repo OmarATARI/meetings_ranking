@@ -27,13 +27,5 @@ class LoginController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/logout", name="log_out")
-     * @param AuthenticationUtils $authenticationUtils
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function logout(AuthenticationUtils $authenticationUtils)
-    {
-        return $this->render('home.html.twig');
-    }
+
 }
