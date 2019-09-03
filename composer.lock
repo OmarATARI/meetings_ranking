@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c9ae19d165bce4a98388ec81c7ded14",
+    "content-hash": "3b25673655764c28f803857957d81c5d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1732,6 +1732,7 @@
             "time": "2019-07-08T08:31:25+00:00"
         },
         {
+
             "name": "symfony/cache",
             "version": "v4.3.4",
             "source": {

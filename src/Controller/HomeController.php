@@ -8,6 +8,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class HomeController extends AbstractController
 {
 
@@ -19,13 +20,20 @@ class HomeController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Meeting::class);
 
         $Meetings = $repository->findAll();
-        $paginator  = $this->get('knp_paginator');
-        $rndMeeting = $paginator->paginate(
-            $Meetings,
-            $request->query->getInt('page',1),10);
+
+       $allMeetings = $paginator->paginate(
+
+           $Meetings,
+
+           $request->query->getInt('page', 1),
+
+           3
+       );
+
 
         return $this->render('home/index.html.twig', [
-            "rndMeeting" => $rndMeeting,
+                "allMeetings" => $allMeetings,
+
 
         ]);
     }
