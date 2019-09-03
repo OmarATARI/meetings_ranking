@@ -3,24 +3,77 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>List des meeting</h1>
-    <ul>
-        {% for Meeting in allMeetings %}
-            <li>
-                {{ Meeting.title }}
-            </li>
-        {% endfor %}
-    </ul>
+    <body>
 
-    <div class="navigation">
-        {{ knp_pagination_render(allMeetings) }}
-    </div>
 
-</div>
+    <header id="header">
+        <div class="container">
+
+
+
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
+
+
+
+                    <li><a href="#about">Meetings</a></li>
+
+                    {#<li><a class= "{% if current_menu is defined and current_menu == 'admin' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('') }}" > Admin </a></li>#}
+
+                    <li><a class= "{% if current_menu is defined and current_menu == 'log_in' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}" > Login </a></li>
+
+                    <li><a class= " buy-tickets {% if current_menu is defined and current_menu == 'logout' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('logout') }}" > Logout </a></li>
+
+
+                    <li><a href="#contact">Contact</a></li>
+
+                </ul>
+            </nav>
+            <!-- #nav-menu-container -->
+        </div>
+    </header>
+    <!-- #header -->
+
+    <!--==========================
+        Intro Section
+      ============================-->
+    <section id="intro">
+        <div class="intro-container wow fadeIn">
+            <h1 class="mb-4 pb-0">The Annuals<br><span>Development</span> Conferences</h1>
+
+
+            <a href="#about" class="about-btn scrollto">About The Events</a>
+        </div>
+    </section>
+
+
+
+
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>List of meetings</h2>
+                    <ul>
+                        {% for Meeting in allMeetings %}
+                            <li>
+                                {{ Meeting.title }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+
+
+                    {{ knp_pagination_render(allMeetings) }}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </body>
+
 {% endblock %}
