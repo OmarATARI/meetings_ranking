@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Meeting;
 use App\Form\MeetingType;
-use App\Form\MeetingEditType;
 use App\Repository\MeetingRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/user/meetings")
@@ -39,13 +37,12 @@ class MeetingController extends AbstractController
     /**
      * @Route("/", name="meeting_index", methods={"GET"})
      * @param MeetingRepository $meetingRepository
-     * @param UserInterface $user
      * @return Response
      */
-    public function index(MeetingRepository $meetingRepository, UserInterface $user): Response
+    public function index(MeetingRepository $meetingRepository): Response
     {
         return $this->render('meeting/index.html.twig', [
-            'meetings' => $meetingRepository->findBy(['user' => $user->getId()]),
+            'meetings' => $meetingRepository->findBy(['user' => $this->getUser()->getId()]),
         ]);
     }
 
@@ -57,6 +54,8 @@ class MeetingController extends AbstractController
     public function new(Request $request): Response
     {
         $meeting = new Meeting();
+        $meeting->setUser($this->getUser());
+
         $form = $this->createForm(MeetingType::class, $meeting);
         $form->handleRequest($request);
 
