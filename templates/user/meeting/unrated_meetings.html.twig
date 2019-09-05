@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Meeting index{% endblock %}
+{% block title %}Meeting unrated{% endblock %}
 
 {% block body %}
 
@@ -10,8 +10,8 @@
         </div>
     </section>
 
-        <section id="schedule" class="section-with-bg">
-            <div class="container-fluid">
+    <section id="schedule" class="section-with-bg">
+        <div class="container-fluid">
             <h1>Meeting index</h1>
 
             <table class="table">
@@ -52,7 +52,7 @@
             </table>
 
             <a class="btn btn-danger" href="{{ path('meeting_new') }}">Create new</a>
-            </div>
-        </section>
+        </div>
+    </section>
 
 {% endblock %}

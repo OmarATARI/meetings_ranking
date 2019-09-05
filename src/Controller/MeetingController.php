@@ -26,7 +26,6 @@ class MeetingController extends AbstractController
      * MeetingController constructor.
      * @param EntityManagerInterface $em
      * @param MeetingRepository $meetingRepo
-     * @param UserRepository $userRepo
      */
     public function __construct(EntityManagerInterface $em, MeetingRepository $meetingRepo, RankingRepository $ranking)
     {
@@ -37,13 +36,12 @@ class MeetingController extends AbstractController
 
     /**
      * @Route("/", name="meeting_index", methods={"GET"})
-     * @param MeetingRepository $meetingRepository
      * @return Response
      */
-    public function index(MeetingRepository $meetingRepository): Response
+    public function index(): Response
     {
         return $this->render('user/meeting/index.html.twig', [
-            'meetings' => $meetingRepository->findBy(['user' => $this->getUser()->getId()]),
+            'meetings' => $this->meetingRepo->findBy(['user' => $this->getUser()->getId()]),
         ]);
     }
 
@@ -80,31 +78,25 @@ class MeetingController extends AbstractController
      */
     public function show(Meeting $meeting): Response
     {
-
-        $user = $this->getUser();
         $ratings = $this->ranking->findBy([
             'meeting'=> $meeting->getId()
         ]);
 
 
-        // --------------------  Calculate average rate
-        $sum_ratings = 0;
-        foreach($ratings as $rating)
+        if(count($ratings) != 0)
         {
-            $sum_ratings = $sum_ratings + $rating->getValue();
+            // --------------------  Calculate average rate
+            $sum_ratings = 0;
+            foreach($ratings as $rating)
+            {
+                $sum_ratings = $sum_ratings + $rating->getValue();
+            }
+            $star_rating = $sum_ratings/count($ratings);
+
+        }else{
+            $star_rating = 0;
         }
-        $star_rating = $sum_ratings/count($ratings);
 
-
-            // VIEW RATED MEETING FOR AN USER
-
-/*        if(!empty($this->ranking->findOneBy(['userRank' => $user->getId(), 'meeting'=> $meeting->getId()])))
-        {
-            $star_rating = $this->ranking->findOneBy([
-                'userRank' => $user->getId(),
-                'meeting'=> $meeting->getId()
-            ])->getValue();
-        }*/
         return $this->render('user/meeting/show.html.twig', [
             'meeting' => $meeting,
             'star_rating' => $star_rating,
@@ -143,5 +135,35 @@ class MeetingController extends AbstractController
         }
 
         return $this->redirectToRoute('meeting_index');
+    }
+
+    /**
+     * @Route("/rated", name="meeting_rated", methods={"GET"})
+     * @return Response
+     */
+    public function ratedMeetings(): Response
+    {
+        $rated_meetings = $this->ranking->findUserRatedMeetings(['user' => $this->getUser()->getId()]);
+
+        return $this->render('user/meeting/rated_meetings.html.twig', [
+            'meetings' => $this->meetingRepo->findBy([array(
+                'id' => $rated_meetings
+            )]),
+        ]);
+    }
+
+    /**
+     * @Route("/unrated", name="meeting_unrated", methods={"GET"})
+     * @return Response
+     */
+    public function unratedMeetings(): Response
+    {
+        $unrated_meetings = $this->ranking->findUserUnratedMeetings(['user' => $this->getUser()->getId()]);
+
+        return $this->render('user/meeting/unrated_meetings.html.twig', [
+            'meetings' => $this->meetingRepo->findBy([array(
+                'id' => $unrated_meetings
+            )]),
+        ]);
     }
 }
