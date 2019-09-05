@@ -23,7 +23,7 @@ security:
                 password_parameter: "login[password]"
             logout:
                 path: /logout
-                target: /home
+                target: home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
