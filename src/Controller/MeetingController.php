@@ -44,8 +44,9 @@ class MeetingController extends AbstractController
      */
     public function index(MeetingRepository $meetingRepository, UserInterface $user): Response
     {
-        return $this->render('meeting/index.html.twig', [
+        return $this->render('user/meeting/index.html.twig', [
             'meetings' => $meetingRepository->findBy(['user' => $user->getId()]),
+            'current_menu' => 'home',
         ]);
     }
 
@@ -69,7 +70,7 @@ class MeetingController extends AbstractController
             return $this->redirectToRoute('meeting_index');
         }
 
-        return $this->render('meeting/new.html.twig', [
+        return $this->render('user/meeting/new.html.twig', [
             'meeting' => $meeting,
             'form' => $form->createView(),
         ]);
@@ -80,7 +81,7 @@ class MeetingController extends AbstractController
      */
     public function show(Meeting $meeting): Response
     {
-        return $this->render('meeting/show.html.twig', [
+        return $this->render('user/meeting/show.html.twig', [
             'meeting' => $meeting,
         ]);
     }
@@ -99,7 +100,7 @@ class MeetingController extends AbstractController
             return $this->redirectToRoute('meeting_index');
         }
 
-        return $this->render('meeting/edit.html.twig', [
+        return $this->render('user/meeting/edit.html.twig', [
             'meeting' => $meeting,
             'form' => $form->createView(),
         ]);
