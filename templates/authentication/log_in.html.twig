@@ -12,7 +12,7 @@
 
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
+                    <li class="menu-active"><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
 
 
 
@@ -20,9 +20,11 @@
 
                     {#<li><a class= "{% if current_menu is defined and current_menu == 'admin' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('') }}" > Admin </a></li>#}
 
-                    <li><a class= "{% if current_menu is defined and current_menu == 'log_in' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}" > log_in </a></li>
+                    <li><a class= "{% if current_menu is defined and current_menu == 'register' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('register') }}" > Register </a></li>
 
-                    <li><a class= " buy-tickets {% if current_menu is defined and current_menu == 'logout' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('logout') }}" > log_out </a></li>
+                    <li><a class= "{% if current_menu is defined and current_menu == 'log_in' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}" > Login </a></li>
+
+                    <li class= "buy-tickets" ><a class= "buy-tickets" {% if is_granted('IS_AUTHENTICATED_FULLY') %}null;{% else %}hidden{%endif%}  href="{{ path('logout') }}" > Log_out </a></li>
 
 
                     <li><a href="#contact">Contact</a></li>
@@ -42,10 +44,15 @@
 
 
                     {{ form_start(form)  }}
-                    {{ form_row(form.email, {label_attr: {class: 'form-group form-control'} }) }}
-                    {{ form_row(form.password, {label_attr: {class: 'rform-group form-control'} }) }}
+<div class="form-group">
+                    {{ form_row(form.email, {label_attr: {class: 'form-group form-control'} } ) }}
+</div>
+<div class="form-group">
+                    {{ form_row(form.password, {label_attr: {class: 'form-group form-control'} }) }}
+</div>
                     {{ form_row(form.submit,{label_attr: {class: 'form-check-label'} }) }}
                     {{ form_end(form) }}
+
 
 
         </div>
@@ -53,6 +60,25 @@
 
 
 
+    <footer id="footer">
 
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong>TheEvent</strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!--
+      All the links in the footer should remain intact.
+      You can delete the links only if you purchased the pro version.
+      Licensing information: https://bootstrapmade.com/license/
+      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
+    -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </footer>
+    <!-- #footer -->
+
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
 {% endblock %}

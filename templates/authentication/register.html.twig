@@ -4,15 +4,117 @@
 
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.firstName) }}
-    {{ form_row(form.lastName) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
-    {{ form_row(form.submit) }}
+
+<header id="header">
+    <div class="container">
+
+
+
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="menu-active"><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
+
+
+
+                <li><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}">Meetings</a></li>
+
+                {#<li><a class= "{% if current_menu is defined and current_menu == 'admin' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('') }}" > Admin </a></li>#}
+
+                <li><a class= "{% if current_menu is defined and current_menu == 'register' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('register') }}" > Register </a></li>
+
+                <li><a class= "{% if current_menu is defined and current_menu == 'log_in' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}" > Login </a></li>
+
+
+
+                <li><a class= "buy-tickets" {% if is_granted('IS_AUTHENTICATED_FULLY') %}null;{% else %}hidden{%endif%}  href="{{ path('logout') }}" > Log_out </a></li>
+
+
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+        </nav>
+        <!-- #nav-menu-container -->
+    </div>
+</header>
+<!-- #header -->
+
+<!--==========================
+Intro Section
+============================-->
+<section id="intro">
+
+
+        <div class="intro-container wow fadeIn">
+            <form>
+
+
+
+            <!--exampleInputPassword1-->
+
+                <div class="form-row">
+                    {{ form_start(form) }}
+                    <div class="col-md-4">
+    {{ form_row(form.firstName, {label_attr: {'class': 'form-group form-control'} }) }}
+                    </div>
+
+                    <div class="col-md-4">
+    {{ form_row(form.lastName, {label_attr: {class: 'form-group form-control'} }) }}
+                    </div>
+
+                    <div class="col-md-4">
+                        {{ form_row(form.username, {label_attr: {class: 'form-group form-control'} }) }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+    {{ form_row(form.email, {label_attr: {class: 'form-group form-control'} }) }}
+                    </div>
+                    <div class="col-md-3">
+    {{ form_row(form.password.first, {label_attr: {class: 'form-group form-control'} }) }}
+                    </div>
+                    <div class="col-md-6">
+            {{ form_row(form.password.second, {label_attr: {class: 'form-group form-control'} }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+    {{ form_row(form.submit,{label_attr: {class: 'form-check-label'} })  }}
+                    </div>
+                </div>
     {{ form_end(form) }}
+
+            </form>
+
+        </div>
+
+
+
+
+</section>
+
+
+
+<footer id="footer">
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong>TheEvent</strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!--
+  All the links in the footer should remain intact.
+  You can delete the links only if you purchased the pro version.
+  Licensing information: https://bootstrapmade.com/license/
+  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
+-->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+</footer>
+<!-- #footer -->
+
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
 {% endblock %}
-
-

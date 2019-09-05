@@ -3,35 +3,131 @@
 {% block title %}Meeting index{% endblock %}
 
 {% block body %}
-    <h1>Meeting index</h1>
+<body>
 
-    <table class="table">
-        <thead>
+
+<header id="header">
+    <div class="container">
+
+
+
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="menu-active"><a class="{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
+
+
+
+                <li><a href="#schedule">Meetings</a></li>
+
+                {#<li><a class= "{% if current_menu is defined and current_menu == 'admin' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('') }}" > Admin </a></li>#}
+
+                <li><a class= "{% if current_menu is defined and current_menu == 'register' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('register') }}" > Register </a></li>
+
+                <li><a class= "{% if current_menu is defined and current_menu == 'log_in' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}" > Login </a></li>
+
+                <li><a href="#contact">Contact</a></li>
+
+                <li  class="buy-tickets" ><a class="buy-tickets" {% if is_granted('IS_AUTHENTICATED_FULLY') %}null;{% else %}hidden{%endif%}  href="{{ path('logout') }}" > Logout </a></li>
+
+
+
+            </ul>
+        </nav>
+        <!-- #nav-menu-container -->
+    </div>
+</header>
+<!-- #header -->
+
+<!--==========================
+    Intro Section
+  ============================-->
+<section id="intro">
+    <div class="intro-container wow fadeIn">
+        <h1 class="mb-4 pb-0">The Annuals<br><span>Development</span> Conferences</h1>
+
+
+        <a href="#about" class="about-btn scrollto">About The Events</a>
+    </div>
+</section>
+
+
+
+
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>List of meetings</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="schedule" class="section-with-bg">
+    <div class="container-fluid">
+<h1 class="mb-4 pb-0">Meeting index</h1>
+
+
+
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for meeting in meetings %}
+    <tr>
+        <th>{{ meeting.id }}</th>
+        <td>{{ meeting.title }}</td>
+        <td>{{ meeting.description }}</td>
+        <td> <a class="btn btn-primary btn-sm" href="{{ path('meeting_show', {'id': meeting.id}) }}">show</a>
+            <a class="btn btn-secondary btn-sm" href="{{ path('meeting_edit', {'id': meeting.id}) }}">edit</a></td>
+    </tr>
+    {% else %}
         <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>actions</th>
+            <td colspan="4">no records found</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for meeting in meetings %}
-            <tr>
-                <td>{{ meeting.id }}</td>
-                <td>{{ meeting.title }}</td>
-                <td>{{ meeting.description }}</td>
-                <td>
-                    <a href="{{ path('meeting_show', {'id': meeting.id}) }}">show</a>
-                    <a href="{{ path('meeting_edit', {'id': meeting.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% endfor %}
+    </tbody>
+</table>
 
-    <a href="{{ path('meeting_new') }}">Create new</a>
+
+<a class="btn btn-danger"  href="{{ path('meeting_new') }}">Create new</a>
+
+    </div>
+</section>
+
+
+<!--==========================
+     Schedule Section
+   ============================-->
+
+
+<footer id="footer">
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong>TheEvent</strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!--
+  All the links in the footer should remain intact.
+  You can delete the links only if you purchased the pro version.
+  Licensing information: https://bootstrapmade.com/license/
+  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
+-->
+            Designed by <a href="https://bootstrapmade.com/">ASI D.21</a>
+        </div>
+    </div>
+</footer>
+<!-- #footer -->
+
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+</body>
 {% endblock %}

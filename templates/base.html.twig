@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            <link href="/img/favicon.png" rel="icon">
+            <link href="/img/meeting.png" rel="icon">
             <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
             <!-- Google Fonts -->
@@ -39,7 +39,7 @@
 
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                        <li><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
+                        <li class="menu-active"><a class="{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
 
 
 
@@ -47,12 +47,15 @@
 
                         {#<li><a class= "{% if current_menu is defined and current_menu == 'admin' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('') }}" > Admin </a></li>#}
 
+                        <li><a class= "{% if current_menu is defined and current_menu == 'register' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('register') }}" > Register </a></li>
+
                         <li><a class= "{% if current_menu is defined and current_menu == 'log_in' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}" > Login </a></li>
 
-                        <li><a class= " buy-tickets {% if current_menu is defined and current_menu == 'logout' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('logout') }}" > Logout </a></li>
-
-
                         <li><a href="#contact">Contact</a></li>
+
+                        <li  class="buy-tickets" ><a class="buy-tickets" {% if is_granted('IS_AUTHENTICATED_FULLY') %}null;{% else %}hidden{%endif%}  href="{{ path('logout') }}" > Logout </a></li>
+
+
 
                     </ul>
                 </nav>
