@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Meeting;
 use App\Form\MeetingType;
 use App\Repository\MeetingRepository;
+use App\Repository\RankingRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +20,7 @@ class MeetingController extends AbstractController
 {
     private $em;
     private $meetingRepo;
-    private $userRepo;
+    private $ranking;
 
     /**
      * MeetingController constructor.
@@ -27,11 +28,11 @@ class MeetingController extends AbstractController
      * @param MeetingRepository $meetingRepo
      * @param UserRepository $userRepo
      */
-    public function __construct(EntityManagerInterface $em, MeetingRepository $meetingRepo, UserRepository $userRepo)
+    public function __construct(EntityManagerInterface $em, MeetingRepository $meetingRepo, RankingRepository $ranking)
     {
         $this->em = $em;
         $this->meetingRepo = $meetingRepo;
-        $this->userRepo = $userRepo;
+        $this->ranking = $ranking;
     }
 
     /**
@@ -79,8 +80,34 @@ class MeetingController extends AbstractController
      */
     public function show(Meeting $meeting): Response
     {
+
+        $user = $this->getUser();
+        $ratings = $this->ranking->findBy([
+            'meeting'=> $meeting->getId()
+        ]);
+
+
+        // --------------------  Calculate average rate
+        $sum_ratings = 0;
+        foreach($ratings as $rating)
+        {
+            $sum_ratings = $sum_ratings + $rating->getValue();
+        }
+        $star_rating = $sum_ratings/count($ratings);
+
+
+            // VIEW RATED MEETING FOR AN USER
+
+/*        if(!empty($this->ranking->findOneBy(['userRank' => $user->getId(), 'meeting'=> $meeting->getId()])))
+        {
+            $star_rating = $this->ranking->findOneBy([
+                'userRank' => $user->getId(),
+                'meeting'=> $meeting->getId()
+            ])->getValue();
+        }*/
         return $this->render('user/meeting/show.html.twig', [
             'meeting' => $meeting,
+            'star_rating' => $star_rating,
         ]);
     }
 
