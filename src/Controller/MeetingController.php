@@ -41,7 +41,7 @@ class MeetingController extends AbstractController
      */
     public function index(MeetingRepository $meetingRepository): Response
     {
-        return $this->render('meeting/index.html.twig', [
+        return $this->render('user/meeting/index.html.twig', [
             'meetings' => $meetingRepository->findBy(['user' => $this->getUser()->getId()]),
         ]);
     }
