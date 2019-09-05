@@ -35,6 +35,21 @@ class MeetingRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * @return Meeting[]
+     */
+    public function findByName($value)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.title like :query')
+            ->setParameter('query', "%". $value ."%")
+            // ->orderBy('c.id', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Meeting

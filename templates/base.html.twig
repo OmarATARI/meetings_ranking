@@ -25,6 +25,7 @@
         {% endblock %}
     </head>
     <body>
+
         {% block body %}
 
 
@@ -39,6 +40,7 @@
 
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
+
                         <li><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
 
 
@@ -53,6 +55,7 @@
 
 
                         <li><a href="#contact">Contact</a></li>
+
 
                     </ul>
                 </nav>
