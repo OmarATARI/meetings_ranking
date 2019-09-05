@@ -18,7 +18,7 @@ security:
             form_login:
                 login_path: log_in
                 check_path: log_in
-                default_target_path: register
+                default_target_path: home
                 username_parameter: "login[email]"
                 password_parameter: "login[password]"
             logout:
