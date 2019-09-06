@@ -207,8 +207,12 @@ class User implements UserInterface
      *
      * @return (Role|string)[] The user roles
      */
-    public function getRoles()
+    public function getRoles(): array
     {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = ['ROLE_USER','ROLE_ADMIN'];
+
         return $this->roles;
     }
 
@@ -233,5 +237,9 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    public function setRoles(array $array, array $array1)
+    {
     }
 }
