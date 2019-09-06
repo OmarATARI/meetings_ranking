@@ -3,6 +3,10 @@
 {% block title %}Hello AdminUserController!{% endblock %}
 
 {% block body %}
+
+
+
+
     <section id="intro">
         <div class="intro-container wow fadeIn">
             <h1 class="mb-4 pb-0">liste <br><span>users</span></h1>
@@ -14,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h2>List users</h2>
-                    <table>
+                   {# <table>
                         {% for User in allUsers %}
                         <tr>
                             <td>email</td>
@@ -41,8 +45,46 @@
 
                     {{ knp_pagination_render(allUsers) }}
 
+                </div>#}
                 </div>
             </div>
         </div>
     </section>
-{% endblock %}
+
+<section id="schedule" class="section-with-bg">
+    <div class="container-fluid">
+        <h1>Meeting index</h1>
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for User in allUsers  %}
+                <tr>
+                    <th scope="row">{{ User.firstname }}</th>
+                    <th>{{ User.lastname }}</th>
+                    <th>{{ User.username }}</th>
+                    <th>
+                        {{ User.email }}
+                    </th>
+                    <th>
+                        <a class="btn btn-primary" href="{{ path('admin_user_updateUser',{'id' : User.id }) }}">Editer</a>
+                        <a class="btn btn-danger" href="{{ path('admin_user_removeUser',{'id' : User.id }) }}">Supprimer</a>
+                    </th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <td colspan="4"> {{ knp_pagination_render(allUsers) }}</td>
+    </div>
+</section>
+
+        {% endblock %}
