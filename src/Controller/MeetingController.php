@@ -99,7 +99,7 @@ class MeetingController extends AbstractController
 
         return $this->render('user/meeting/show.html.twig', [
             'meeting' => $meeting,
-            'star_rating' => $star_rating,
+            's2input' => $star_rating,
         ]);
     }
 
