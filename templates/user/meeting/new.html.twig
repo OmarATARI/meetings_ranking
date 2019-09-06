@@ -3,9 +3,19 @@
 {% block title %}New Meeting{% endblock %}
 
 {% block body %}
+<section id="intro">
+    <div class="intro-container wow fadeIn ">
+
+
     <h1>Create new Meeting</h1>
 
-    {{ include('meeting/_form.html.twig') }}
+    {{ include('user/meeting/_form.html.twig') }}
 
     <a href="{{ path('meeting_index') }}">back to list</a>
+
+
+
+    </div>
+</section>
+
 {% endblock %}

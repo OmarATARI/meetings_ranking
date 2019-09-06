@@ -19,6 +19,31 @@ class RankingRepository extends ServiceEntityRepository
         parent::__construct($registry, Ranking::class);
     }
 
+    public function findUserRatedMeetings($user_id)
+    {
+        return $this->createQueryBuilder('fm')
+            ->andWhere('fm.user = :user')
+            ->setParameter('user', $user_id)
+            ->orderBy('fm.id', 'ASC')
+            ->select('fm.meeting as meeting')
+            ->distinct()
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findUserUnratedMeetings($user_id)
+    {
+        return $this->createQueryBuilder('fm')
+            ->andWhere('fm.user != :user')
+            ->setParameter('user', $user_id)
+            ->orderBy('fm.id', 'ASC')
+            ->select('fm.meeting as meeting')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Ranking[] Returns an array of Ranking objects
     //  */

@@ -8,12 +8,13 @@ $('#star1').starrr({
         }
     }
 });
-var $s2input = $('#star2_input');
+var s2input = $('#star2');
 $('#star2').starrr({
     max: 10,
-    rating: $s2input.val(),
+    rating: s2input.val(),
     change: function(e, value){
-        $s2input.val(value).trigger('input');
+        s2input.val(value).trigger('input');
     }
 });
+
 

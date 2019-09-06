@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Meeting index{% endblock %}
+{% block title %}Meeting unrated{% endblock %}
 
 {% block body %}
 
@@ -10,8 +10,8 @@
         </div>
     </section>
 
-        <section id="schedule" class="section-with-bg">
-            <div class="container-fluid">
+    <section id="schedule" class="section-with-bg">
+        <div class="container-fluid">
             <h1>Meeting index</h1>
 
             <table class="table">
@@ -31,17 +31,16 @@
                         <th>{{ meeting.title }}</th>
                         <th>{{ meeting.description }}</th>
                         <th>
-
+                            <div class='starrr' id='star1'></div>
+                            <div>
+                                <span class='your-choice-was' style='display: none;'>
+                                    Your rating was <span class='choice'></span>.
+                                </span>
+                            </div>
                         </th>
                         <th>
-
-                            <a class="btn btn-warning" href="{{ path('meeting_edit', {'id': meeting.id}) }}">edit</a>
-                            <form method="post" action="{{ path('meeting_delete', {'id': meeting.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meeting.id) }}">
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
-
+                            <a class="btn btn-primary" href="{{ path('meeting_show', {'id': meeting.id}) }}">show</a>
+                            <a class="btn btn-danger" href="{{ path('meeting_edit', {'id': meeting.id}) }}">edit</a>
                         </th>
                     </tr>
                 {% else %}
@@ -53,7 +52,7 @@
             </table>
 
             <a class="btn btn-danger" href="{{ path('meeting_new') }}">Create new</a>
-            </div>
-        </section>
+        </div>
+    </section>
 
 {% endblock %}

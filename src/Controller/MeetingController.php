@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Meeting;
+use App\Entity\Ranking;
 use App\Form\MeetingType;
+use App\Form\RankingType;
 use App\Repository\MeetingRepository;
+use App\Repository\RankingRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,30 +22,28 @@ class MeetingController extends AbstractController
 {
     private $em;
     private $meetingRepo;
-    private $userRepo;
+    private $ranking;
 
     /**
      * MeetingController constructor.
      * @param EntityManagerInterface $em
      * @param MeetingRepository $meetingRepo
-     * @param UserRepository $userRepo
      */
-    public function __construct(EntityManagerInterface $em, MeetingRepository $meetingRepo, UserRepository $userRepo)
+    public function __construct(EntityManagerInterface $em, MeetingRepository $meetingRepo, RankingRepository $ranking)
     {
         $this->em = $em;
         $this->meetingRepo = $meetingRepo;
-        $this->userRepo = $userRepo;
+        $this->ranking = $ranking;
     }
 
     /**
      * @Route("/", name="meeting_index", methods={"GET"})
-     * @param MeetingRepository $meetingRepository
      * @return Response
      */
-    public function index(MeetingRepository $meetingRepository): Response
+    public function index(): Response
     {
         return $this->render('user/meeting/index.html.twig', [
-            'meetings' => $meetingRepository->findBy(['user' => $this->getUser()->getId()]),
+            'meetings' => $this->meetingRepo->findBy(['user' => $this->getUser()->getId()]),
         ]);
     }
 
@@ -77,10 +78,13 @@ class MeetingController extends AbstractController
     /**
      * @Route("/{id}", name="meeting_show", methods={"GET"})
      */
-    public function show(Meeting $meeting): Response
+    public function show(Meeting $meeting, Request $request): Response
     {
+        $average_rate = $this->calculateAverageRate($meeting);
+
         return $this->render('user/meeting/show.html.twig', [
             'meeting' => $meeting,
+            's2input' => $average_rate,
         ]);
     }
 
@@ -116,5 +120,62 @@ class MeetingController extends AbstractController
         }
 
         return $this->redirectToRoute('meeting_index');
+    }
+
+    /**
+     * @param Meeting $meeting
+     * @return float|int
+     */
+    public function calculateAverageRate(Meeting $meeting)
+    {
+        $ratings = $this->ranking->findBy([
+            'meeting'=> $meeting->getId()
+        ]);
+
+        if(count($ratings) != 0)
+        {
+            $sum_ratings = 0;
+            foreach($ratings as $rating)
+            {
+                $sum_ratings = $sum_ratings + $rating->getValue();
+            }
+            $star_rating = $sum_ratings/count($ratings);
+
+        }else{
+            $star_rating = 0;
+        }
+        return $star_rating;
+    }
+
+
+
+    /**
+     * @Route("/rated", name="meeting_rated", methods={"GET"})
+     * @return Response
+     */
+    public function ratedMeetings(): Response
+    {
+        $rated_meetings = $this->ranking->findUserRatedMeetings(['user' => $this->getUser()->getId()]);
+
+        return $this->render('user/meeting/rated_meetings.html.twig', [
+            'meetings' => $this->meetingRepo->findBy([array(
+                'id' => $rated_meetings
+            )]),
+        ]);
+    }
+
+    /**
+     * @Route("/unrated", name="meeting_unrated", methods={"GET"})
+     * @return Response
+     */
+    public function unratedMeetings(): Response
+    {
+        $unrated_meetings = $this->ranking->findUserUnratedMeetings(['user' => $this->getUser()->getId()]);
+
+        return $this->render('user/meeting/unrated_meetings.html.twig', [
+            'meetings' => $this->meetingRepo->findBy([array(
+                'id' => $unrated_meetings
+            )]),
+        ]);
     }
 }
