@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Meeting index{% endblock %}
+
+{% block body %}
+    <h1>Meeting index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for meeting in meetings %}
+            <tr>
+                <td>{{ meeting.id }}</td>
+                <td>{{ meeting.title }}</td>
+                <td>{{ meeting.description }}</td>
+                <td>
+                    <a href="{{ path('meeting_show', {'id': meeting.id}) }}">show</a>
+                    <a href="{{ path('meeting_edit', {'id': meeting.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('meeting_new') }}">Create new</a>
+{% endblock %}
