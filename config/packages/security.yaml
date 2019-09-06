@@ -2,6 +2,9 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
         App\Entity\User: bcrypt
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
     providers:
         our_db_provider:
             entity:
@@ -18,12 +21,12 @@ security:
             form_login:
                 login_path: log_in
                 check_path: log_in
-                default_target_path: register
+                default_target_path: home
                 username_parameter: "login[email]"
                 password_parameter: "login[password]"
             logout:
                 path: /logout
-                target: /home
+                target: home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

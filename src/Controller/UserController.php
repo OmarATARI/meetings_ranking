@@ -27,9 +27,9 @@ class UserController extends AbstractController
      * @Route("/profile", name="profile_user")
      * @return Response
      */
-    public function index(UserInterface $user)
+    public function index()
     {
-        $current_user = $this->userRepo->find($user->getId());
+        $current_user = $this->getUser();
 
         return $this->render('user/profile.html.twig', array(
             'user' => $current_user

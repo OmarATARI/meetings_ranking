@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Meeting;
 use App\Form\MeetingType;
@@ -11,10 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @Route("/user/meetings")
- */
 class MeetingController extends AbstractController
 {
     private $em;
@@ -34,58 +32,28 @@ class MeetingController extends AbstractController
         $this->userRepo = $userRepo;
     }
 
+
     /**
-     * @Route("/", name="meeting_index", methods={"GET"})
-     * @param MeetingRepository $meetingRepository
-     * @return Response
+     * @Route("/admin/meeting/", name="admin_meeting")
      */
     public function index(MeetingRepository $meetingRepository): Response
     {
-        return $this->render('user/meeting/index.html.twig', [
+        return $this->render('admin_meeting/index.html.twig', [
             'meetings' => $meetingRepository->findBy(['user' => $this->getUser()->getId()]),
         ]);
     }
 
     /**
-     * @Route("/new", name="meeting_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $meeting = new Meeting();
-        $meeting->setUser($this->getUser());
-
-        $form = $this->createForm(MeetingType::class, $meeting);
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($meeting);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('meeting_index');
-        }
-
-        return $this->render('user/meeting/new.html.twig', [
-            'meeting' => $meeting,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="meeting_show", methods={"GET"})
+     * @Route("admin/meeting/{id}", name="admin_meeting_show", methods={"GET"})
      */
     public function show(Meeting $meeting): Response
     {
-        return $this->render('user/meeting/show.html.twig', [
+        return $this->render('meeting/show.html.twig', [
             'meeting' => $meeting,
         ]);
     }
-
     /**
-     * @Route("/{id}/edit", name="meeting_edit", methods={"GET","POST"})
+     * @Route("/admin/meeting/{id}/edit", name="admin_meeting_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Meeting $meeting): Response
     {
@@ -95,17 +63,17 @@ class MeetingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('meeting_index');
+            return $this->redirectToRoute('admin_meeting');
         }
 
-        return $this->render('user/meeting/edit.html.twig', [
+        return $this->render('admin_meeting/edit.html.twig', [
             'meeting' => $meeting,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="meeting_delete", methods={"DELETE"})
+     * @Route("/admin/meeting/{id}", name="admin_meeting_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Meeting $meeting): Response
     {
@@ -115,6 +83,7 @@ class MeetingController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('meeting_index');
+        return $this->redirectToRoute('admin_meeting');
     }
+
 }

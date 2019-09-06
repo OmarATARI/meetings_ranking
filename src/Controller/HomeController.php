@@ -11,33 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
     public function index(Request $request, PaginatorInterface $paginator)
     {
         $repository = $this->getDoctrine()->getRepository(Meeting::class);
-
         $Meetings = $repository->findAll();
-
-       $allMeetings = $paginator->paginate(
-
+        $allMeetings = $paginator->paginate(
            $Meetings,
-
            $request->query->getInt('page', 1),
-
            3
-       );
-
+        );
 
         return $this->render('home/index.html.twig', [
-                "allMeetings" => $allMeetings,
-
-
+                'allMeetings' => $allMeetings,
+                'current_menu' => 'home'
         ]);
     }
-
-
-
 }

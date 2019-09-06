@@ -5,54 +5,14 @@
 
 {% block body %}
 
-    <header id="header">
-        <div class="container">
-
-
-
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
-                    <li><a class= "{% if current_menu is defined and current_menu == 'meetings' %}active{%endif%}" href="{{ path('home') }}" >Home </a></li>
-
-
-
-                    <li><a href="#schedule">Meetings</a></li>
-
-                    {#<li><a class= "{% if current_menu is defined and current_menu == 'admin' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('') }}" > Admin </a></li>#}
-
-                    <li><a class= "{% if current_menu is defined and current_menu == 'log_in' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}" > log_in </a></li>
-
-                    <li><a class= " buy-tickets {% if current_menu is defined and current_menu == 'logout' %}active{%endif%}" {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('logout') }}" > log_out </a></li>
-
-
-                    <li><a href="#contact">Contact</a></li>
-
-                </ul>
-            </nav>
-            <!-- #nav-menu-container -->
-        </div>
-    </header>
-    <!-- #header -->
-
-    <!--==========================
-    Intro Section
-  ============================-->
     <section id="intro">
         <div class="intro-container wow fadeIn ">
-
-
-                    {{ form_start(form)  }}
-                    {{ form_row(form.email, {label_attr: {class: 'form-group form-control'} }) }}
-                    {{ form_row(form.password, {label_attr: {class: 'rform-group form-control'} }) }}
-                    {{ form_row(form.submit,{label_attr: {class: 'form-check-label'} }) }}
-                    {{ form_end(form) }}
-
-
+            {{ form_start(form)  }}
+            {{ form_row(form.email, {label_attr: {class: 'form-group form-control'} }) }}
+            {{ form_row(form.password, {label_attr: {class: 'form-group form-control'} }) }}
+            {{ form_row(form.submit,{label_attr: {class: 'form-check-label'} }) }}
+            {{ form_end(form) }}
         </div>
     </section>
-
-
-
-
 
 {% endblock %}
