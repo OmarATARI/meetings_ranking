@@ -31,6 +31,9 @@ class RegisterController extends AbstractController
 
         return $this->render('authentication/register.html.twig', [
             'form' => $form->createView(),
+
+            'current_menu' => 'register',
+
         ]);
     }
 }
