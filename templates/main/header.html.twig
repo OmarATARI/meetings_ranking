@@ -9,6 +9,12 @@
                     <a  {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('log_in') }}"> Login </a>
                 </li>
                 <li>
+                    <a  {% if not is_granted('ROLE_ADMIN') %}hidden{%endif%} href="{{ path('admin_user') }}"> Admin </a>
+                </li>
+                <li>
+                    <a  {% if not is_granted('ROLE_ADMIN') %}hidden{%endif%} href="{{ path('meeting_index') }}"> All meetings </a>
+                </li>
+                <li>
                     <a  {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('register') }}"> Register </a>
                 </li>
                 <li>

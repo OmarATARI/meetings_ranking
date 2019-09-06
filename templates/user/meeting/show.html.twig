@@ -3,7 +3,16 @@
 {% block title %}Meeting{% endblock %}
 
 {% block body %}
+
+    <section id="intro">
+        <div class="intro-container wow fadeIn">
+            <h1 class="mb-4 pb-0">Rate and share your best <br><span>Meetings</span></h1>
+        </div>
+    </section>
+
+
     <h1>Meeting</h1>
+    <div class="container-fluid">
 
     <table class="table">
         <tbody>
@@ -35,6 +44,7 @@
 
     {{ include('user/meeting/_delete_form.html.twig') }}
 
+<<<<<<< Updated upstream
     <script>
         window.onload = updateTextInput({{ s2input }});
 
@@ -43,4 +53,7 @@
         }
     </script>
 
+=======
+    </div>
+>>>>>>> Stashed changes
 {% endblock %}
