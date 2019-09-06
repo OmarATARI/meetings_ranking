@@ -14,18 +14,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <h2>List of meetings</h2>
-                    <ul>
-                        {% for Meeting in allMeetings %}
-                            <li>
-                                {{ Meeting.title }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    {{ knp_pagination_render(allMeetings) }}
-
+                    <h2>Welcome to best Meeting ranking website</h2>
                 </div>
             </div>
         </div>
@@ -36,7 +25,12 @@
     <div class="container wow fadeInUp">
 
 
-        <h3 class="sub-heading">List Of Meeting</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>List of meetings</h2>
+
+            </div>
+        </div>
 
         <div class="tab-content row justify-content-center">
 
@@ -50,8 +44,15 @@
                         <p>{{ Meeting.description }}</p>
                     </div>
 
-            </div>
+                </div>
                 {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-3">
+
+
+            {{ knp_pagination_render(allMeetings) }}
+
         </div>
     </div>
 </section>

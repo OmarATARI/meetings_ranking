@@ -11,6 +11,12 @@
                 <li>
                     <a  {% if is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('register') }}"> Register </a>
                 </li>
+                <li>
+                    <a  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('meeting_index') }}"> My meetings </a>
+                </li>
+                <li>
+                    <a  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('profile_user') }}"> My Profile </a>
+                </li>
                 <li class="buy-tickets">
                     <a  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}hidden{%endif%} href="{{ path('logout') }}"> Logout </a>
                 </li>

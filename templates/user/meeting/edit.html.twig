@@ -3,11 +3,24 @@
 {% block title %}Edit Meeting{% endblock %}
 
 {% block body %}
+<section id="intro">
+    <div class="intro-container wow fadeIn ">
     <h1>Edit Meeting</h1>
 
     {{ include('user/meeting/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('meeting_index') }}">back to list</a>
+<div class="form-row">
+    <div class="col-md-6 mb-3">
+    <a class="btn btn-primary" href="{{ path('meeting_index') }}">back to list</a>
+    </div>
 
+    <div class="form-group">
+    <div class="col-md-4 mb-3">
     {{ include('user/meeting/_delete_form.html.twig') }}
+    </div>
+    </div>
+
+</div>
+    </div>
+</section>
 {% endblock %}
