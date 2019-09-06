@@ -19,6 +19,13 @@
                 <th>Description</th>
                 <td>{{ meeting.description }}</td>
             </tr>
+            <tr>
+            </tr>
+            <th> Rating
+                <input type="range" id="start" name="volume" value="{{ s2input }}" onChange="updateTextInput(this.value);"
+                       min="0" max="10">
+                <input type="text" id="textInput" value="">
+            </th>
         </tbody>
     </table>
 
@@ -26,5 +33,14 @@
 
     <a href="{{ path('meeting_edit', {'id': meeting.id}) }}">edit</a>
 
-    {{ include('meeting/_delete_form.html.twig') }}
+    {{ include('user/meeting/_delete_form.html.twig') }}
+
+    <script>
+        window.onload = updateTextInput({{ s2input }});
+
+        function updateTextInput(val) {
+            document.getElementById('textInput').value=val;
+        }
+    </script>
+
 {% endblock %}

@@ -8,6 +8,7 @@
     <h1>Edit Meeting</h1>
 
     {{ include('user/meeting/_form.html.twig', {'button_label': 'Update'}) }}
+
 <div class="form-row">
     <div class="col-md-6 mb-3">
     <a class="btn btn-primary" href="{{ path('meeting_index') }}">back to list</a>
@@ -22,5 +23,4 @@
 </div>
     </div>
 </section>
-
 {% endblock %}

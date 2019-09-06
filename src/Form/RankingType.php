@@ -2,26 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Meeting;
+use App\Entity\Ranking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MeetingType extends AbstractType
+class RankingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('description')
-            //->add('value')
+            ->add('meeting', MeetingType::class)
+            ->add('userRank', UserType::class)
+            ->add('value')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Meeting::class
+            'data_class' => Ranking::class
         ]);
     }
 }
