@@ -125,7 +125,7 @@ class MeetingController extends AbstractController
     /**
      * @param Meeting $meeting
      * @return float|int
-     */
+     *//*
     public function calculateAverageRate(Meeting $meeting)
     {
         $ratings = $this->ranking->findBy([
@@ -145,7 +145,7 @@ class MeetingController extends AbstractController
             $star_rating = 0;
         }
         return $star_rating;
-    }
+    }*/
 
 
 

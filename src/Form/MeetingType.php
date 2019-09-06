@@ -14,7 +14,7 @@ class MeetingType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('value')
+            //->add('value')
         ;
     }
 
