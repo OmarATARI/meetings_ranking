@@ -70,7 +70,7 @@ class CreateAdminCommand extends Command
         $user->setEmail($email);
         $passwordEncoded = $this->encoder->encodePassword($user, $password);
         $user->setPassword($passwordEncoded);
-        $user->setRoles(['ROLE_USER'], ['ROLE_ADMIN']);
+        $user->setRoles(['ROLE_USER','ROLE_ADMIN']);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         $io->success(sprintf('You have created a User with email: %s', $email));

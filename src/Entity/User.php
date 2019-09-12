@@ -20,12 +20,12 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastName;
 
@@ -35,7 +35,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $username;
 
@@ -209,10 +209,6 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = ['ROLE_USER','ROLE_ADMIN'];
-
         return $this->roles;
     }
 
@@ -239,7 +235,8 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    public function setRoles(array $array, array $array1)
+    public function setRoles(array $array)
     {
+        $this->roles = $array;
     }
 }
