@@ -4,7 +4,7 @@
 - docker-compose pull
 - docker-compose build
 - docker-compose up -d
-- docker-compose exec web php bin/console d:s:u
+- docker-compose exec web php bin/console d:s:u --force
 
 ### Create an administrator
 - docker-compose exec web composer install
